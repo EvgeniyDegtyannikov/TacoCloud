@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import tacos.data.TacoRepository;
 import tacos.domain.Ingredient;
 import tacos.domain.Taco;
 
@@ -17,7 +16,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 @Repository
-public class JdbcTacoRepository implements TacoRepository {
+public class JdbcTacoRepository {
     private JdbcTemplate jdbc;
 
     @Autowired
@@ -25,7 +24,7 @@ public class JdbcTacoRepository implements TacoRepository {
         this.jdbc = jdbc;
     }
 
-    @Override
+    //    @Override
     public Taco save(Taco design) {
         long tacoId = saveTacoInfo(design);
         design.setId(tacoId);
