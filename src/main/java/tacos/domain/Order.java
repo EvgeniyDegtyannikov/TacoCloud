@@ -5,7 +5,6 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,16 +23,6 @@ public class Order {
     @ManyToOne
     private User user;
 
-    @NotBlank(message = "Name is required")
-    private String deliveryName;
-    @NotBlank(message = "Street is required")
-    private String deliveryStreet;
-    @NotBlank(message = "City is required")
-    private String deliveryCity;
-    @NotBlank(message = "State is required")
-    private String deliveryState;
-    @NotBlank(message = "Zip is required")
-    private String deliveryZip;
     @CreditCardNumber(message = "Not a valid credit card number")
     private String ccNumber;
     @Pattern(regexp = "^(0[1-9]|1[0-2])([/])([1-9][0-9])$",

@@ -19,37 +19,6 @@
             </span>
     </div>
 
-    <h3>Deliver my taco masterpieces to...</h3>
-    <label for="deliveryName">Name: </label>
-    <input th:field="*{deliveryName}" type="text"/>
-    <span class="validationError" th:errors="*{deliveryName}"
-          th:if="${#fields.hasErrors('deliveryName')}">name error</span>
-    <br/>
-
-    <label for="deliveryStreet">Street address: </label>
-    <input th:field="*{deliveryStreet}" type="text"/>
-    <span class="validationError" th:errors="*{deliveryStreet}"
-          th:if="${#fields.hasErrors('deliveryStreet')}">street error</span>
-    <br/>
-
-    <label for="deliveryCity">City: </label>
-    <input th:field="*{deliveryCity}" type="text"/>
-    <span class="validationError" th:errors="*{deliveryCity}"
-          th:if="${#fields.hasErrors('deliveryCity')}">city error</span>
-    <br/>
-
-    <label for="deliveryState">State: </label>
-    <input th:field="*{deliveryState}" type="text"/>
-    <span class="validationError" th:errors="*{deliveryState}"
-          th:if="${#fields.hasErrors('deliveryState')}">state error</span>
-    <br/>
-
-    <label for="deliveryZip">Zip code: </label>
-    <input th:field="*{deliveryZip}" type="text"/>
-    <span class="validationError" th:errors="*{deliveryZip}"
-          th:if="${#fields.hasErrors('deliveryZip')}">zip error</span>
-    <br/>
-
     <h3>Here's how I'll pay...</h3>
     <label for="ccNumber">Credit Card #: </label>
     <input th:field="*{ccNumber}" type="text"/>

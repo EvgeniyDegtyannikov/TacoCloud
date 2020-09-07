@@ -27,6 +27,7 @@ public class User implements UserDetails {
     private final String state;
     private final String zip;
     private final String phoneNumber;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
