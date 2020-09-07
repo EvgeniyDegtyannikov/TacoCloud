@@ -6,7 +6,7 @@
     <title>Taco Cloud</title>
 </head>
 <body>
-<form method="post" th:object="${order}">
+<form method="post" th:action="@{/orders/current}" th:object="${order}">
     <h1>Order your taco creations!</h1>
 
     <img th:src="@{/images/TacoCloud.jpg}">
