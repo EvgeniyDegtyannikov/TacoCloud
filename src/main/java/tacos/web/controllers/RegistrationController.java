@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import tacos.data.RoleRepository;
 import tacos.data.UserRepository;
 import tacos.domain.User;
 import tacos.web.forms.RegistrationForm;
@@ -19,11 +20,13 @@ import javax.validation.Valid;
 public class RegistrationController {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
+    private RoleRepository roleRepository;
 
     @Autowired
-    public RegistrationController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public RegistrationController(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
     }
 
     @ModelAttribute("form")
@@ -38,11 +41,16 @@ public class RegistrationController {
 
     @PostMapping
     public String processRegistration(@Valid @ModelAttribute("form") RegistrationForm form, Errors errors) {
+        User user = form.toUser(passwordEncoder);
+        if (userRepository.findByUsername(user.getUsername()) != null)
+            errors.rejectValue("username", "666", "user with this name already exists");
         if (errors.hasErrors())
             return "registration";
-        User user = form.toUser(passwordEncoder);
+        String role = userRepository.getAllUsers().isEmpty() ? "admin" : "user";
         userRepository.saveUser(user.getUsername(), user.getPassword(), user.getFullname(), user.getStreet(),
                 user.getCity(), user.getState(), user.getZip(), user.getPhoneNumber());
+        User saved = userRepository.findByUsername(user.getUsername());
+        roleRepository.addRole(roleRepository.findByName(role).getId(), saved.getId());
         return "redirect:/login";
     }
 }

@@ -36,12 +36,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/design", "/orders")
-                .access("hasRole('ROLE_USER')")
+                .antMatchers("/admin-panel").hasRole("admin")
+                .antMatchers("/design", "/orders").hasRole("user")
                 .antMatchers("/", "/**")
                 .access("permitAll")
                 .antMatchers("/console/**")
                 .access("permitAll")
+                .anyRequest()
+                .authenticated()
+                .and()
+                .exceptionHandling().accessDeniedPage("/access-denied")
                 .and()
                 .formLogin()
                 .loginPage("/login")

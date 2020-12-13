@@ -8,6 +8,14 @@ delete
 from Taco_Order;
 delete
 from Ingredient;
+--delete
+--from User__Roles;
+delete
+from Role;
+insert into role (name)
+values ('admin');
+insert into role (name)
+values ('user');
 insert into ingredient (id, name, type)
 values ('FLTO', 'Flour Tortilla', 'WRAP');
 insert into ingredient (id, name, type)

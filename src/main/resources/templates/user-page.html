@@ -3,10 +3,10 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Taco Cloud</title>
+    <title>User Page</title>
 </head>
 <body>
-<table border="1" id="table" th:object="${users}">
+<table border="1" id="table" th:object="${user}">
     <thead>
     <tr>
         <th>Id</th>
@@ -20,7 +20,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="user :${users}">
+    <tr>
         <td>
             <a th:href="@{/user{id}(id=${user.id})}"><p th:text="${user.username}"></p></a>
         </td>
