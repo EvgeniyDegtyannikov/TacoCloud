@@ -13,6 +13,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
     void saveUser(String username, String password, String fullname, String street, String city, String state,
                   String zip, String phone);
 
+    @Procedure(procedureName = "update_user")
+    void updateUser(Long id, String username, String password, String fullname, String street, String city, String state,
+                    String zip, String phone);
+
     @Query(value = "CALL find_user_by_username(:username);", nativeQuery = true)
     User findByUsername(@Param("username") String name);
 

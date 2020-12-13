@@ -6,34 +6,60 @@
     <title>User Page</title>
 </head>
 <body>
-<table border="1" id="table" th:object="${user}">
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Username</th>
-        <th>FullName</th>
-        <th>State</th>
-        <th>City</th>
-        <th>Street</th>
-        <th>Zip</th>
-        <th>Phone number</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>
-            <a th:href="@{/user{id}(id=${user.id})}"><p th:text="${user.username}"></p></a>
-        </td>
-        <!--            <td th:text="${user.getId()}" th:href="@{@{user(id=${user.getId()})}}"></td>-->
-        <td th:text="${user.getUsername()}"></td>
-        <td th:text="${user.getFullname()}"></td>
-        <td th:text="${user.getState()}"></td>
-        <td th:text="${user.getCity()}"></td>
-        <td th:text="${user.getStreet()}"></td>
-        <td th:text="${user.getZip()}"></td>
-        <td th:text="${user.getPhoneNumber()}"></td>
-    </tr>
-    </tbody>
-</table>
+<form id="updateForm" method="post" th:action="@{/user{id}(id=${user.id})}" th:object="${user}">
+    <label for="id">Id: </label>
+    <input readonly="readonly" th:field="*{id}" type="text"/>
+    <br/>
+
+    <label for="username">Username: </label>
+    <input th:field="*{username}" type="text"/>
+    <span class="validationError" th:errors="*{username}"
+          th:if="${#fields.hasErrors('username')}">username error</span>
+    <br/>
+
+    <label for="password">Password: </label>
+    <input th:field="*{password}" type="password"/>
+    <span class="validationError" th:errors="*{password}"
+          th:if="${#fields.hasErrors('password')}">password error</span>
+    <br/>
+
+    <label for="fullname">Full name: </label>
+    <input th:field="*{fullname}" type="text"/>
+    <span class="validationError" th:errors="*{fullname}"
+          th:if="${#fields.hasErrors('fullname')}">fullname error</span>
+    <br/>
+
+    <label for="street">Street: </label>
+    <input th:field="*{street}" type="text"/>
+    <span class="validationError" th:errors="*{street}"
+          th:if="${#fields.hasErrors('street')}">street error</span>
+    <br/>
+
+    <label for="city">City: </label>
+    <input th:field="*{city}" type="text"/>
+    <span class="validationError" th:errors="*{city}"
+          th:if="${#fields.hasErrors('city')}">city error</span>
+    <br/>
+
+    <label for="state">State: </label>
+    <input th:field="*{state}" type="text"/>
+    <span class="validationError" th:errors="*{state}"
+          th:if="${#fields.hasErrors('state')}">state error</span>
+    <br/>
+
+    <label for="zip">Zip: </label>
+    <input th:field="*{zip}" type="text"/>
+    <span class="validationError" th:errors="*{zip}"
+          th:if="${#fields.hasErrors('zip')}">zip error</span>
+    <br/>
+
+    <label for="phoneNumber">Phone: </label>
+    <input th:field="*{phoneNumber}" type="text"/>
+    <span class="validationError" th:errors="*{phoneNumber}"
+          th:if="${#fields.hasErrors('phoneNumber')}">phone error</span>
+    <br/>
+
+    <input type="submit" value="Update"/>
+</form>
 </body>
 </html>

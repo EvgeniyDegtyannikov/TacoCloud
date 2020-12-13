@@ -17,12 +17,13 @@
         <th>Street</th>
         <th>Zip</th>
         <th>Phone number</th>
+        <th>Roles</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="user :${users}">
         <td>
-            <a th:href="@{/user{id}(id=${user.id})}"><p th:text="${user.username}"></p></a>
+            <a th:href="@{/user{id}(id=${user.id})}"><p th:text="${user.getId()}"></p></a>
         </td>
         <!--            <td th:text="${user.getId()}" th:href="@{@{user(id=${user.getId()})}}"></td>-->
         <td th:text="${user.getUsername()}"></td>
@@ -32,6 +33,40 @@
         <td th:text="${user.getStreet()}"></td>
         <td th:text="${user.getZip()}"></td>
         <td th:text="${user.getPhoneNumber()}"></td>
+        <td>
+            <div th:each="role :${user.getRoles()}">
+                <span th:text="${role.getName()}"><br/></span>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<table border="1" id="orders-table" th:object="${orders}">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Date</th>
+        <th>User</th>
+        <th>ccNumber</th>
+        <th>ccExpiration</th>
+        <th>ccCVV</th>
+        <th>Tacos</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order :${orders}">
+        <td th:text="${order.getId()}"></td>
+        <td th:text="${order.getPlacedAt()}"></td>
+        <td th:text="${order.getUser().getUsername()}"></td>
+        <td th:text="${order.getCcNumber()}"></td>
+        <td th:text="${order.getCcExpiration()}"></td>
+        <td th:text="${order.getCcCVV()}"></td>
+        <td>
+            <div th:each="taco :${order.getTacos()}">
+                <span th:text="${taco.getName()}"><br/></span>
+            </div>
+        </td>
     </tr>
     </tbody>
 </table>

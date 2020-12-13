@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +8,11 @@
 </head>
 <body>
 <h1>Welcome to...</h1>
+<div sec:authorize="isAuthenticated()">
+    <form method="POST" th:action="@{/logout}">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
 <a th:href="@{/design}">Design your taco</a><br/>
 <a th:href="@{/admin-panel}">Go to admin panel</a>
 </body>

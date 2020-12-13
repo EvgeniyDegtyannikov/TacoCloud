@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import tacos.domain.Order;
 
 import java.util.Date;
+import java.util.List;
 
 public interface OrderRepository extends CrudRepository<Order, Long> {
     @Query(value = "CALL save_order(:placedAt, :ccNumber, :ccExpiration, :ccCVV, :userId);", nativeQuery = true)
@@ -16,4 +17,7 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
     @Procedure(procedureName = "save_order_tacos")
     void saveOrderTacos(Long tacoId, Long orderId);
+
+    @Query(value = "CALL get_all_orders();", nativeQuery = true)
+    List<Order> getAllOrders();
 }
