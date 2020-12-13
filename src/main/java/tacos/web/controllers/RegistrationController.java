@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import tacos.data.UserRepository;
+import tacos.domain.User;
 import tacos.web.forms.RegistrationForm;
 
 import javax.validation.Valid;
@@ -39,7 +40,9 @@ public class RegistrationController {
     public String processRegistration(@Valid @ModelAttribute("form") RegistrationForm form, Errors errors) {
         if (errors.hasErrors())
             return "registration";
-        userRepository.save(form.toUser(passwordEncoder));
+        User user = form.toUser(passwordEncoder);
+        userRepository.saveUser(user.getUsername(), user.getPassword(), user.getFullname(), user.getStreet(),
+                user.getCity(), user.getState(), user.getZip(), user.getPhoneNumber());
         return "redirect:/login";
     }
 }

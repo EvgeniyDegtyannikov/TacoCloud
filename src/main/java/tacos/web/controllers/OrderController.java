@@ -37,7 +37,10 @@ public class OrderController {
         if (errors.hasErrors())
             return "orderForm";
         order.setUser(user);
-        orderRepository.save(order);
+        order.placedAt();
+        Order saved = orderRepository.saveOrder(order.getPlacedAt(), order.getCcNumber(), order.getCcExpiration(),
+                order.getCcCVV(), order.getUser().getId());
+        order.getTacos().forEach(taco -> orderRepository.saveOrderTacos(taco.getId(), saved.getId()));
         sessionStatus.setComplete();
         return "redirect:/";
     }

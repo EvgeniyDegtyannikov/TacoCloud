@@ -34,8 +34,8 @@ public class DesignTacoController {
     @ModelAttribute
     public void addIngredientsToModel(Model model) {
         List<Ingredient> ingredientList = new ArrayList<>();
-        System.out.println(ingredientRepository.findAll());
-        ingredientRepository.findAll().forEach(ingredientList::add);
+        System.out.println(ingredientRepository.findAllIngredients());
+        ingredientRepository.findAllIngredients().forEach(ingredientList::add);
         for (Ingredient.Type type : Ingredient.Type.values()
         ) {
             model.addAttribute(type.toString().toLowerCase(), ingredientList.stream()
@@ -64,7 +64,9 @@ public class DesignTacoController {
     public String processDesign(@Valid @ModelAttribute("taco") Taco taco, Errors errors, @ModelAttribute("order") Order order) {
         if (errors.hasErrors())
             return "design";
-        Taco saved = tacoRepository.save(taco);
+        taco.createdAt();
+        Taco saved = tacoRepository.saveTaco(taco.getCreatedAt(), taco.getName());
+        taco.getIngredients().forEach(ingredient -> tacoRepository.saveTacoIngredient(saved.getId(), ingredient.getId()));
         order.addDesign(saved);
         return "redirect:/orders/current";
     }

@@ -38,6 +38,34 @@ public class Order {
         this.tacos.add(design);
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Date getPlacedAt() {
+        return placedAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getCcNumber() {
+        return ccNumber;
+    }
+
+    public String getCcExpiration() {
+        return ccExpiration;
+    }
+
+    public String getCcCVV() {
+        return ccCVV;
+    }
+
+    public List<Taco> getTacos() {
+        return tacos;
+    }
+
     @PrePersist
     public void placedAt() {
         this.placedAt = new Date();

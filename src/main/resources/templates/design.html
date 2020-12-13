@@ -10,7 +10,6 @@
 <form method="POST" th:action="@{/logout}">
     <input type="submit" value="Logout"/>
 </form>
-<img src="/images/TacoCloud.jpg">
 <form method="post" th:action="@{/design}" th:object="${taco}">
 
         <span class="validationError" th:errors="*{ingredients}"

@@ -27,6 +27,22 @@ public class Taco {
     @Size(min = 1, message = "You must choose at least 1 ingredient")
     private List<Ingredient> ingredients;
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
     @PrePersist
     public void createdAt() {
         this.createdAt = new Date();
