@@ -1,17 +1,20 @@
 package tacos.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import tacos.data.LogRecordRepository;
 import tacos.data.RoleRepository;
 import tacos.data.UserRepository;
 import tacos.domain.User;
 import tacos.web.forms.UserUpdateForm;
 
 import javax.validation.Valid;
+import java.util.Date;
 
 @Controller
 @RequestMapping(path = "/user{id}")
@@ -19,12 +22,15 @@ public class UserController {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
     private RoleRepository roleRepository;
+    private final LogRecordRepository logRecordRepository;
 
     @Autowired
-    public UserController(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserController(UserRepository userRepository, RoleRepository roleRepository,
+                          PasswordEncoder passwordEncoder, LogRecordRepository logRecordRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.logRecordRepository = logRecordRepository;
     }
 
     @ModelAttribute("form")
@@ -50,6 +56,8 @@ public class UserController {
             return "redirect:/user" + form.getId();
         userRepository.updateUser(Long.valueOf(form.getId()), user.getUsername(), user.getPassword(), user.getFullname(), user.getStreet(),
                 user.getCity(), user.getState(), user.getZip(), user.getPhoneNumber());
+        logRecordRepository.logAction(new Date(), "Update user: " + form.getUsername(),
+                ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
         return "redirect:/user" + form.getId();
     }
 }

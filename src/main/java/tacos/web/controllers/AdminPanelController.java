@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import tacos.data.IngredientRepository;
 import tacos.data.OrderRepository;
 import tacos.data.UserRepository;
 
@@ -13,10 +14,13 @@ import tacos.data.UserRepository;
 public class AdminPanelController {
     private UserRepository userRepository;
     private OrderRepository orderRepository;
+    private IngredientRepository ingredientRepository;
 
     @Autowired
-    public AdminPanelController(UserRepository userRepository, OrderRepository orderRepository) {
+    public AdminPanelController(UserRepository userRepository, OrderRepository orderRepository,
+                                IngredientRepository ingredientRepository) {
         this.orderRepository = orderRepository;
+        this.ingredientRepository = ingredientRepository;
         this.userRepository = userRepository;
     }
 
@@ -24,6 +28,7 @@ public class AdminPanelController {
     public String loadPanel(Model model) {
         model.addAttribute("users", userRepository.getAllUsers());
         model.addAttribute("orders", orderRepository.getAllOrders());
+        model.addAttribute("ingrs", ingredientRepository.findAllIngredients());
         return "admin-panel";
     }
 }

@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import tacos.data.LogRecordRepository;
 import tacos.data.RoleRepository;
 import tacos.data.UserRepository;
 import tacos.domain.User;
 import tacos.web.forms.RegistrationForm;
 
 import javax.validation.Valid;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/register")
@@ -21,12 +23,15 @@ public class RegistrationController {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
     private RoleRepository roleRepository;
+    private final LogRecordRepository logRecordRepository;
 
     @Autowired
-    public RegistrationController(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public RegistrationController(UserRepository userRepository, RoleRepository roleRepository,
+                                  PasswordEncoder passwordEncoder, LogRecordRepository logRecordRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.logRecordRepository = logRecordRepository;
     }
 
     @ModelAttribute("form")
@@ -51,6 +56,8 @@ public class RegistrationController {
                 user.getCity(), user.getState(), user.getZip(), user.getPhoneNumber());
         User saved = userRepository.findByUsername(user.getUsername());
         roleRepository.addRole(roleRepository.findByName(role).getId(), saved.getId());
+        logRecordRepository.logAction(new Date(), "Register user: " + saved.getUsername(),
+                saved.getUsername());
         return "redirect:/login";
     }
 }

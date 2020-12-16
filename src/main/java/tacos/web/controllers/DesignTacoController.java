@@ -2,18 +2,22 @@ package tacos.web.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import tacos.data.IngredientRepository;
+import tacos.data.LogRecordRepository;
 import tacos.data.TacoRepository;
 import tacos.domain.Ingredient;
 import tacos.domain.Order;
 import tacos.domain.Taco;
+import tacos.domain.User;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,11 +28,14 @@ import java.util.stream.Collectors;
 public class DesignTacoController {
     private final IngredientRepository ingredientRepository;
     private final TacoRepository tacoRepository;
+    private final LogRecordRepository logRecordRepository;
 
     @Autowired
-    public DesignTacoController(IngredientRepository ingredientRepository, TacoRepository tacoRepository) {
+    public DesignTacoController(IngredientRepository ingredientRepository, TacoRepository tacoRepository,
+                                LogRecordRepository logRecordRepository) {
         this.ingredientRepository = ingredientRepository;
         this.tacoRepository = tacoRepository;
+        this.logRecordRepository = logRecordRepository;
     }
 
     @ModelAttribute
@@ -68,6 +75,8 @@ public class DesignTacoController {
         Taco saved = tacoRepository.saveTaco(taco.getCreatedAt(), taco.getName());
         taco.getIngredients().forEach(ingredient -> tacoRepository.saveTacoIngredient(saved.getId(), ingredient.getId()));
         order.addDesign(saved);
+        logRecordRepository.logAction(new Date(), "Save taco: " + saved.getId(),
+                ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
         return "redirect:/orders/current";
     }
 }
