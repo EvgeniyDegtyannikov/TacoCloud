@@ -17,12 +17,6 @@
           th:if="${#fields.hasErrors('username')}">username error</span>
     <br/>
 
-    <label for="password">Password: </label>
-    <input th:field="*{password}" type="password"/>
-    <span class="validationError" th:errors="*{password}"
-          th:if="${#fields.hasErrors('password')}">password error</span>
-    <br/>
-
     <label for="fullname">Full name: </label>
     <input th:field="*{fullname}" type="text"/>
     <span class="validationError" th:errors="*{fullname}"
@@ -61,5 +55,51 @@
 
     <input type="submit" value="Update"/>
 </form>
+<span>Orders table</span>
+<table border="1" id="orders-table" th:object="${orders}">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Date</th>
+        <th>User</th>
+        <th>ccNumber</th>
+        <th>ccExpiration</th>
+        <th>ccCVV</th>
+        <th>Tacos</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order :${orders}">
+        <td th:text="${order.getId()}"></td>
+        <td th:text="${order.getPlacedAt()}"></td>
+        <td th:text="${order.getUser().getUsername()}"></td>
+        <td th:text="${order.getCcNumber()}"></td>
+        <td th:text="${order.getCcExpiration()}"></td>
+        <td th:text="${order.getCcCVV()}"></td>
+        <td>
+            <table border="1" id="tacos-table" th:object="${order.getTacos()}">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Ingredients</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="taco :${tacos.get(order.getId())}">
+                    <td>
+                        <span th:text="${taco.getName()}"><br/></span>
+                    </td>
+                    <td>
+                        <div th:each="ingr :${ingrs.get(taco.getId())}">
+                            <span th:text="${ingr.getName()}"><br/></span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

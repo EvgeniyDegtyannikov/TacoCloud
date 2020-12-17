@@ -10,10 +10,14 @@
 <h1>Welcome to...</h1>
 <div sec:authorize="isAuthenticated()">
     <form method="POST" th:action="@{/logout}">
-        <input type="submit" value="Logout"/>
+        <input type="submit" value="Logout"/><br/>
     </form>
+    <a th:href="@{/user{id}(id=${#authentication.getPrincipal().getId()})}">Your profile</a><br/><br/>
 </div>
-<a th:href="@{/design}">Design your taco</a><br/>
+<div sec:authorize="isAnonymous()">
+    <a th:href="@{/login}">Login</a><br/><br/>
+</div>
+<a th:href="@{/design}">Design your taco</a><br/><br/>
 <a th:href="@{/admin-panel}">Go to admin panel</a>
 </body>
 </html>

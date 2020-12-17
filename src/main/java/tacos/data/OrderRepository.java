@@ -20,4 +20,7 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
     @Query(value = "CALL get_all_orders();", nativeQuery = true)
     List<Order> getAllOrders();
+
+    @Query(value = "CALL get_orders_for_user(:uid);", nativeQuery = true)
+    List<Order> getOrdersForUser(@Param("uid") Long id);
 }

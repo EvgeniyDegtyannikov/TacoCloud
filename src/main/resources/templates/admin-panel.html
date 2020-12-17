@@ -26,7 +26,6 @@
         <td>
             <a th:href="@{/user{id}(id=${user.id})}"><p th:text="${user.getId()}"></p></a>
         </td>
-        <!--            <td th:text="${user.getId()}" th:href="@{@{user(id=${user.getId()})}}"></td>-->
         <td th:text="${user.getUsername()}"></td>
         <td th:text="${user.getFullname()}"></td>
         <td th:text="${user.getState()}"></td>
@@ -35,7 +34,7 @@
         <td th:text="${user.getZip()}"></td>
         <td th:text="${user.getPhoneNumber()}"></td>
         <td>
-            <div th:each="role :${user.getRoles()}">
+            <div th:each="role :${roles.get(user.getId())}">
                 <span th:text="${role.getName()}"><br/></span>
             </div>
         </td>
@@ -64,9 +63,26 @@
         <td th:text="${order.getCcExpiration()}"></td>
         <td th:text="${order.getCcCVV()}"></td>
         <td>
-            <div th:each="taco :${order.getTacos()}">
-                <span th:text="${taco.getName()}"><br/></span>
-            </div>
+            <table border="1" id="tacos-table" th:object="${order.getTacos()}">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Ingredients</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="taco :${tacos.get(order.getId())}">
+                    <td>
+                        <span th:text="${taco.getName()}"><br/></span>
+                    </td>
+                    <td>
+                        <div th:each="ingr :${ingrs.get(taco.getId())}">
+                            <span th:text="${ingr.getName()}"><br/></span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </td>
     </tr>
     </tbody>
