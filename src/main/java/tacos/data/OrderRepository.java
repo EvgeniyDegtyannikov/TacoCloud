@@ -10,10 +10,10 @@ import java.util.Date;
 import java.util.List;
 
 public interface OrderRepository extends CrudRepository<Order, Long> {
-    @Query(value = "CALL save_order(:placedAt, :ccNumber, :ccExpiration, :ccCVV, :userId);", nativeQuery = true)
+    @Query(value = "CALL save_order(:placedAt, :ccNumber, :address, :fullname, :phone, :userId);", nativeQuery = true)
     Order saveOrder(@Param("placedAt") Date placedAt, @Param("ccNumber") String ccNumber,
-                    @Param("ccExpiration") String ccExpiration,
-                    @Param("ccCVV") String ccCVV, @Param("userId") Long userId);
+                    @Param("address") String address, @Param("fullname") String fullname, @Param("phone") String phone,
+                    @Param("userId") Long userId);
 
     @Procedure(procedureName = "save_order_tacos")
     void saveOrderTacos(Long tacoId, Long orderId);

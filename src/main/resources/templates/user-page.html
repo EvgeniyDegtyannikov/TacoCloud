@@ -17,42 +17,6 @@
           th:if="${#fields.hasErrors('username')}">username error</span>
     <br/>
 
-    <label for="fullname">Full name: </label>
-    <input th:field="*{fullname}" type="text"/>
-    <span class="validationError" th:errors="*{fullname}"
-          th:if="${#fields.hasErrors('fullname')}">fullname error</span>
-    <br/>
-
-    <label for="street">Street: </label>
-    <input th:field="*{street}" type="text"/>
-    <span class="validationError" th:errors="*{street}"
-          th:if="${#fields.hasErrors('street')}">street error</span>
-    <br/>
-
-    <label for="city">City: </label>
-    <input th:field="*{city}" type="text"/>
-    <span class="validationError" th:errors="*{city}"
-          th:if="${#fields.hasErrors('city')}">city error</span>
-    <br/>
-
-    <label for="state">State: </label>
-    <input th:field="*{state}" type="text"/>
-    <span class="validationError" th:errors="*{state}"
-          th:if="${#fields.hasErrors('state')}">state error</span>
-    <br/>
-
-    <label for="zip">Zip: </label>
-    <input th:field="*{zip}" type="text"/>
-    <span class="validationError" th:errors="*{zip}"
-          th:if="${#fields.hasErrors('zip')}">zip error</span>
-    <br/>
-
-    <label for="phoneNumber">Phone: </label>
-    <input th:field="*{phoneNumber}" type="text"/>
-    <span class="validationError" th:errors="*{phoneNumber}"
-          th:if="${#fields.hasErrors('phoneNumber')}">phone error</span>
-    <br/>
-
     <input type="submit" value="Update"/>
 </form>
 <span>Orders table</span>
@@ -63,8 +27,8 @@
         <th>Date</th>
         <th>User</th>
         <th>ccNumber</th>
-        <th>ccExpiration</th>
-        <th>ccCVV</th>
+        <th>Address</th>
+        <th>Phone</th>
         <th>Tacos</th>
     </tr>
     </thead>
@@ -74,14 +38,15 @@
         <td th:text="${order.getPlacedAt()}"></td>
         <td th:text="${order.getUser().getUsername()}"></td>
         <td th:text="${order.getCcNumber()}"></td>
-        <td th:text="${order.getCcExpiration()}"></td>
-        <td th:text="${order.getCcCVV()}"></td>
+        <td th:text="${order.getAddress()}"></td>
+        <td th:text="${order.getPhone()}"></td>
         <td>
             <table border="1" id="tacos-table" th:object="${order.getTacos()}">
                 <thead>
                 <tr>
                     <th>Name</th>
                     <th>Ingredients</th>
+                    <th>Qty</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -93,6 +58,9 @@
                         <div th:each="ingr :${ingrs.get(taco.getId())}">
                             <span th:text="${ingr.getName()}"><br/></span>
                         </div>
+                    </td>
+                    <td>
+                        <span th:text="${taco.getQty()}"><br/></span>
                     </td>
                 </tr>
                 </tbody>

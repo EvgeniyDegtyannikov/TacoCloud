@@ -72,7 +72,7 @@ public class DesignTacoController {
         if (errors.hasErrors())
             return "design";
         taco.createdAt();
-        Taco saved = tacoRepository.saveTaco(taco.getCreatedAt(), taco.getName());
+        Taco saved = tacoRepository.saveTaco(taco.getCreatedAt(), taco.getName(), taco.getQty());
         taco.getIngredients().forEach(ingredient -> tacoRepository.saveTacoIngredient(saved.getId(), ingredient.getId()));
         order.addDesign(saved);
         logRecordRepository.logAction(new Date(), "Save taco: " + saved.getId(),

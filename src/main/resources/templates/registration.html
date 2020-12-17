@@ -20,42 +20,6 @@
           th:if="${#fields.hasErrors('password')}">password error</span>
     <br/>
 
-    <label for="fullname">Full name: </label>
-    <input th:field="*{fullname}" type="text"/>
-    <span class="validationError" th:errors="*{fullname}"
-          th:if="${#fields.hasErrors('fullname')}">fullname error</span>
-    <br/>
-
-    <label for="street">Street: </label>
-    <input th:field="*{street}" type="text"/>
-    <span class="validationError" th:errors="*{street}"
-          th:if="${#fields.hasErrors('street')}">street error</span>
-    <br/>
-
-    <label for="city">City: </label>
-    <input th:field="*{city}" type="text"/>
-    <span class="validationError" th:errors="*{city}"
-          th:if="${#fields.hasErrors('city')}">city error</span>
-    <br/>
-
-    <label for="state">State: </label>
-    <input th:field="*{state}" type="text"/>
-    <span class="validationError" th:errors="*{state}"
-          th:if="${#fields.hasErrors('state')}">state error</span>
-    <br/>
-
-    <label for="zip">Zip: </label>
-    <input th:field="*{zip}" type="text"/>
-    <span class="validationError" th:errors="*{zip}"
-          th:if="${#fields.hasErrors('zip')}">zip error</span>
-    <br/>
-
-    <label for="phone">Phone: </label>
-    <input th:field="*{phone}" type="text"/>
-    <span class="validationError" th:errors="*{phone}"
-          th:if="${#fields.hasErrors('phone')}">phone error</span>
-    <br/>
-
     <input type="submit" value="Register"/>
 </form>
 </body>

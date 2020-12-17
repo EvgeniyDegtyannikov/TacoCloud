@@ -52,8 +52,7 @@ public class RegistrationController {
         if (errors.hasErrors())
             return "registration";
         String role = userRepository.getAllUsers().isEmpty() ? "admin" : "user";
-        userRepository.saveUser(user.getUsername(), user.getPassword(), user.getFullname(), user.getStreet(),
-                user.getCity(), user.getState(), user.getZip(), user.getPhoneNumber());
+        userRepository.saveUser(user.getUsername(), user.getPassword());
         User saved = userRepository.findByUsername(user.getUsername());
         roleRepository.addRole(roleRepository.findByName(role).getId(), saved.getId());
         logRecordRepository.logAction(new Date(), "Register user: " + saved.getUsername(),

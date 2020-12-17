@@ -1,15 +1,19 @@
 --delete
 --from Ingredient;
---delete
---from Taco_Order_Tacos;
---delete
---from Taco_Ingredients;
---delete
---from Taco;
---delete
---from Taco_Order;
+delete
+from Taco_Order_Tacos;
+delete
+from Taco_Ingredients;
+delete
+from Taco;
+delete
+from Taco_Order;
+delete
+from Log_Record;
 --delete
 --from User__Roles;
+--delete
+--from User_;
 --delete
 --from Role;
 --insert into role (name)

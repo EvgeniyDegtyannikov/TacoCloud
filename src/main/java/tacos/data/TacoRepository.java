@@ -10,8 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 public interface TacoRepository extends CrudRepository<Taco, Long> {
-    @Query(value = "CALL save_taco(:createdAt, :name);", nativeQuery = true)
-    Taco saveTaco(@Param("createdAt") Date createdAt, @Param("name") String name);
+    @Query(value = "CALL save_taco(:createdAt, :name, :qty);", nativeQuery = true)
+    Taco saveTaco(@Param("createdAt") Date createdAt, @Param("name") String name, @Param("qty") Integer qty);
 
     @Procedure(procedureName = "save_taco_ingredient")
     void saveTacoIngredient(Long tacoId, String ingredientsId);

@@ -22,12 +22,6 @@ public class User implements UserDetails {
 
     private final String username;
     private final String password;
-    private final String fullname;
-    private final String street;
-    private final String city;
-    private final String state;
-    private final String zip;
-    private final String phoneNumber;
     @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
     private List<Role> roles;
 
@@ -53,30 +47,6 @@ public class User implements UserDetails {
     @Override
     public String getPassword() {
         return password;
-    }
-
-    public String getFullname() {
-        return fullname;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
     }
 
     public Long getId() {

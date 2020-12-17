@@ -42,8 +42,8 @@ public class OrderController {
             return "orderForm";
         order.setUser(user);
         order.placedAt();
-        Order saved = orderRepository.saveOrder(order.getPlacedAt(), order.getCcNumber(), order.getCcExpiration(),
-                order.getCcCVV(), order.getUser().getId());
+        Order saved = orderRepository.saveOrder(order.getPlacedAt(), order.getCcNumber(), order.getFullname(), order.getAddress(),
+                order.getPhone(), order.getUser().getId());
         order.getTacos().forEach(taco -> orderRepository.saveOrderTacos(taco.getId(), saved.getId()));
         logRecordRepository.logAction(new Date(), "Save order: " + saved.getId(),
                 ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());

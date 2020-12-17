@@ -25,16 +25,22 @@
           th:if="${#fields.hasErrors('ccNumber')}">ccNumber error</span>
     <br/>
 
-    <label for="ccExpiration">Expiration: </label>
-    <input th:field="*{ccExpiration}" type="text"/>
-    <span class="validationError" th:errors="*{ccExpiration}"
-          th:if="${#fields.hasErrors('ccExpiration')}">ccExpiration error</span>
+    <label for="fullname">Full name: </label>
+    <input th:field="*{fullname}" type="text"/>
+    <span class="validationError" th:errors="*{fullname}"
+          th:if="${#fields.hasErrors('fullname')}">fullname error</span>
     <br/>
 
-    <label for="ccCVV">CVV: </label>
-    <input th:field="*{ccCVV}" type="text"/>
-    <span class="validationError" th:errors="*{ccCVV}"
-          th:if="${#fields.hasErrors('ccCVV')}">ccCVV error</span>
+    <label for="address">Address: </label>
+    <input th:field="*{address}" type="text"/>
+    <span class="validationError" th:errors="*{address}"
+          th:if="${#fields.hasErrors('address')}">address error</span>
+    <br/>
+
+    <label for="phone">Phone: </label>
+    <input th:field="*{phone}" type="text"/>
+    <span class="validationError" th:errors="*{phone}"
+          th:if="${#fields.hasErrors('phone')}">phone error</span>
     <br/>
 
     <input type="submit" value="Submit order"/>

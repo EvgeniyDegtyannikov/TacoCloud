@@ -72,8 +72,7 @@ public class UserController {
             errors.rejectValue("username", "666", "user with this name already exists");
         if (errors.hasErrors())
             return "redirect:/user" + form.getId();
-        userRepository.updateUser(Long.valueOf(form.getId()), user.getUsername(), user.getFullname(), user.getStreet(),
-                user.getCity(), user.getState(), user.getZip(), user.getPhoneNumber());
+        userRepository.updateUser(Long.valueOf(form.getId()), user.getUsername());
         logRecordRepository.logAction(new Date(), "Update user: " + form.getUsername(),
                 ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
         return "redirect:/user" + form.getId();

@@ -58,6 +58,11 @@
         <span class="validationError" th:errors="*{name}"
               th:if="${#fields.hasErrors('name')}">name error</span>
         <br/>
+        <h3>Enter the qty:</h3>
+        <input th:field="*{qty}" type="text"/>
+        <span class="validationError" th:errors="*{qty}"
+              th:if="${#fields.hasErrors('qty')}">qty error</span>
+        <br/>
         <button>Submit your taco</button>
     </div>
 </form>

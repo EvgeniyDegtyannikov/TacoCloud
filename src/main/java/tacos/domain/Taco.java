@@ -3,6 +3,8 @@ package tacos.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -18,6 +20,11 @@ public class Taco {
 
     private Date createdAt;
 
+    @NotNull(message = "Enter the qty")
+    @Min(value = 1, message = "The qty must be greater than 0")
+    @Max(value = 99, message = "The qty must be lesser than 100")
+    private Integer qty;
+
     @NotNull
     @Size(min = 5, message = "Name must be at least 5 characters long")
     private String name;
@@ -29,6 +36,14 @@ public class Taco {
 
     public Long getId() {
         return id;
+    }
+
+    public Integer getQty() {
+        return qty;
+    }
+
+    public void setQty(Integer qty) {
+        this.qty = qty;
     }
 
     public String getName() {
