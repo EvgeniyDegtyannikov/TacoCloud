@@ -41,6 +41,7 @@
         <th>Address</th>
         <th>Phone</th>
         <th>Tacos</th>
+        <th>Status</th>
     </tr>
     </thead>
     <tbody>
@@ -77,6 +78,12 @@
                 </tr>
                 </tbody>
             </table>
+        </td>
+        <td>
+            <form method="post" th:action="@{/admin-panel/approve/{id}(id=${order.getId()})}">
+                <input name="status" th:value="${order.getStatus()}" type="text"/>
+                <input type="submit" value="Approve"/>
+            </form>
         </td>
     </tr>
     </tbody>

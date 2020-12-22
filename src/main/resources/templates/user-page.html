@@ -30,6 +30,7 @@
         <th>Address</th>
         <th>Phone</th>
         <th>Tacos</th>
+        <th>Status</th>
     </tr>
     </thead>
     <tbody>
@@ -66,6 +67,7 @@
                 </tbody>
             </table>
         </td>
+        <td th:text="${order.getStatus()}"></td>
     </tr>
     </tbody>
 </table>

@@ -42,6 +42,8 @@ public class Order {
     @Pattern(regexp = "(^$|[0-9]{10})", message = "Must be 10 digits")
     private String phone;
 
+    private String status;
+
     public void addDesign(Taco design) {
         this.tacos.add(design);
     }
@@ -84,6 +86,14 @@ public class Order {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     //    public String getCcExpiration() {

@@ -3,8 +3,7 @@ package tacos.web.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import tacos.data.*;
 import tacos.domain.Order;
 import tacos.domain.Taco;
@@ -43,5 +42,12 @@ public class AdminPanelController {
         model.addAttribute("ingrs", tacoRepository.getAllTacos().stream()
                 .collect(Collectors.toMap(Taco::getId, t -> ingredientRepository.findIngrsForTaco(t.getId()))));
         return "admin-panel";
+    }
+
+    @PostMapping(path = "/approve/{id}")
+    public String approveOrder(Model model, @RequestParam String status, @PathVariable("id") String orderId) {
+        System.out.println("### " + status + " " + orderId);
+        orderRepository.updateOrderStatus(status, Long.valueOf(orderId));
+        return "redirect:/admin-panel";
     }
 }
